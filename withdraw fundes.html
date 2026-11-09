@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bet Games - Withdrawal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans Ethiopic', sans-serif;
+            background-color: #080705;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphic dark modal background matching reference */
+        .withdraw-modal {
+            background: #12100d;
+            border: 1px solid rgba(255, 119, 0, 0.25);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 85, 0, 0.15);
+        }
+
+        /* Quick Percentage Selection Buttons */
+        .percent-btn {
+            background: rgba(26, 22, 18, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFD700;
+            transition: all 0.2s ease;
+        }
+
+        .percent-btn:hover, .percent-btn.active {
+            background: rgba(255, 119, 0, 0.15);
+            border-color: #FF7700;
+            box-shadow: 0 0 12px rgba(255, 119, 0, 0.3);
+            color: #ffffff;
+        }
+
+        /* Input Glow styling */
+        .custom-input {
+            background: #0a0907;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.2s ease;
+        }
+
+        .custom-input:focus-within {
+            border-color: #FF7700;
+            box-shadow: 0 0 15px rgba(255, 119, 0, 0.25);
+        }
+
+        /* Orange Action Button Gradient */
+        .btn-orange-gradient {
+            background: linear-gradient(180deg, #FF7700 0%, #E64A00 100%);
+            box-shadow: 0 8px 25px rgba(255, 85, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-orange-gradient:hover {
+            background: linear-gradient(180deg, #FF8811 0%, #FF5500 100%);
+            box-shadow: 0 10px 30px rgba(255, 85, 0, 0.6);
+        }
+
+        .btn-orange-gradient:active {
+            transform: scale(0.98);
+        }
+
+        /* Notification Banner Animation */
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .alert-banner {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 min-h-screen">
+
+    <!-- Withdraw Modal Container -->
+    <div class="withdraw-modal w-full max-w-md rounded-3xl p-6 relative z-10">
+        
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/30">
+                    <i class="fa-solid fa-money-bill-transfer text-black text-base"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold tracking-tight text-white">Withdraw Funds</h2>
+                    <p class="text-xs text-gray-400">Secure Payout Transfer</p>
+                </div>
+            </div>
+            <button class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+        </div>
+
+        <!-- Warning / Error Notification Banner -->
+        <div id="bonusAlert" class="hidden alert-banner bg-red-950/80 border border-red-500/50 rounded-2xl p-3.5 mb-4 flex items-center gap-3 text-red-200">
+            <i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg shrink-0"></i>
+            <span class="text-xs font-bold leading-tight">ውድ ደንበኛችን ቦነስ ማውጣት አይቻልም !</span>
+        </div>
+
+        <!-- Available Balance Card (Set to 100 ETB) -->
+        <div class="bg-black/50 border border-orange-500/30 rounded-2xl p-4 mb-5 flex items-center justify-between">
+            <div>
+                <span class="text-[11px] text-gray-400 uppercase font-semibold block">Available Balance</span>
+                <span class="text-xl font-extrabold text-amber-400 tracking-wider">100.00 <span class="text-xs font-normal text-gray-300">ETB</span></span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400">
+                <i class="fa-solid fa-wallet text-lg"></i>
+            </div>
+        </div>
+
+        <!-- Form Inputs -->
+        <form onsubmit="handleWithdraw(event)" class="space-y-4">
+            
+            <!-- Bank / Payment Method Selection -->
+            <div>
+                <label class="text-xs font-semibold text-gray-300 mb-1.5 block">Select Withdrawal Method</label>
+                <div class="custom-input rounded-2xl px-4 py-3 flex items-center gap-3">
+                    <i id="methodIcon" class="fa-solid fa-building-columns text-orange-400 text-base shrink-0"></i>
+                    <select id="bankMethod" onchange="updateMethod()" class="bg-transparent w-full text-white font-semibold text-sm focus:outline-none cursor-pointer">
+                        <option value="telebirr" class="bg-[#12100d] text-white">Telebirr</option>
+                        <option value="cbe" class="bg-[#12100d] text-white">Commercial Bank of Ethiopia (CBE)</option>
+                        <option value="abyssinia" class="bg-[#12100d] text-white">Bank of Abyssinia</option>
+                        <option value="awash" class="bg-[#12100d] text-white">Awash Bank</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Withdrawal Amount Input -->
+            <div>
+                <label class="text-xs font-semibold text-gray-300 mb-1.5 block flex justify-between">
+                    <span>Withdrawal Amount (ETB)</span>
+                    <span class="text-orange-400 text-[11px]">Min: 100 ETB</span>
+                </label>
+                <div class="custom-input rounded-2xl px-4 py-3 flex items-center justify-between">
+                    <input type="number" id="withdrawAmount" min="100" max="100" value="100" oninput="validateWithdraw()" required
+                        class="bg-transparent w-full text-white font-bold text-lg focus:outline-none placeholder-gray-600" placeholder="100">
+                    <span class="text-xs font-bold text-gray-400 uppercase ml-2">ETB</span>
+                </div>
+                <p id="withdrawError" class="text-red-500 text-[11px] mt-1 hidden font-semibold">Minimum withdrawal is 100 ETB</p>
+            </div>
+
+            <!-- Quick Percentage Buttons -->
+            <div class="grid grid-cols-4 gap-2">
+                <button type="button" onclick="setPercentage(0.25)" class="percent-btn py-2 rounded-xl font-bold text-xs">25%</button>
+                <button type="button" onclick="setPercentage(0.50)" class="percent-btn py-2 rounded-xl font-bold text-xs">50%</button>
+                <button type="button" onclick="setPercentage(0.75)" class="percent-btn py-2 rounded-xl font-bold text-xs">75%</button>
+                <button type="button" onclick="setPercentage(1.00)" class="percent-btn py-2 rounded-xl font-bold text-xs">MAX</button>
+            </div>
+
+            <!-- Account / Phone Number Input -->
+            <div>
+                <label id="accountLabel" class="text-xs font-semibold text-gray-300 mb-1.5 block">
+                    Telebirr Phone Number
+                </label>
+                <div class="custom-input rounded-2xl px-4 py-3 flex items-center gap-3">
+                    <i class="fa-solid fa-phone text-gray-400 text-sm shrink-0"></i>
+                    <input type="text" id="accountNumber" required
+                        class="bg-transparent w-full text-white font-semibold text-sm focus:outline-none placeholder-gray-600 tracking-wider" 
+                        placeholder="09XXXXXXXX">
+                </div>
+            </div>
+
+            <!-- Transaction Summary -->
+            <div class="bg-black/30 rounded-2xl p-3.5 border border-white/5 space-y-2 text-xs">
+                <div class="flex justify-between text-gray-400">
+                    <span>Request Amount:</span>
+                    <span id="summaryAmount" class="text-white font-semibold">100.00 ETB</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>Processing Fee (0%):</span>
+                    <span class="text-green-400 font-semibold">0.00 ETB</span>
+                </div>
+                <div class="border-t border-white/10 pt-2 flex justify-between text-sm font-bold text-amber-400">
+                    <span>You Will Receive:</span>
+                    <span id="summaryTotal">100.00 ETB</span>
+                </div>
+            </div>
+
+            <!-- Confirm Button -->
+            <button type="submit" class="w-full btn-orange-gradient py-4 rounded-2xl text-white font-extrabold text-base tracking-wider uppercase mt-2">
+                Request Withdrawal
+            </button>
+        </form>
+
+        <!-- Guarantee Note -->
+        <div class="mt-4 text-center">
+            <span class="text-[11px] text-gray-500 flex items-center justify-center gap-1.5 font-medium">
+                <i class="fa-solid fa-bolt text-orange-500"></i> Payouts processed securely
+            </span>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        const maxBalance = 100;
+
+        // Update Account Label & Icon based on selected bank
+        function updateMethod() {
+            const method = document.getElementById('bankMethod').value;
+            const accountLabel = document.getElementById('accountLabel');
+            const accountNumber = document.getElementById('accountNumber');
+
+            if (method === 'telebirr') {
+                accountLabel.innerText = "Telebirr Phone Number";
+                accountNumber.placeholder = "09XXXXXXXX";
+            } else if (method === 'cbe') {
+                accountLabel.innerText = "CBE Account Number";
+                accountNumber.placeholder = "1000XXXXXXXXX";
+            } else if (method === 'abyssinia') {
+                accountLabel.innerText = "Bank of Abyssinia Account";
+                accountNumber.placeholder = "10XXXXXXXXXX";
+            } else if (method === 'awash') {
+                accountLabel.innerText = "Awash Bank Account";
+                accountNumber.placeholder = "013XXXXXXXXXXX";
+            }
+        }
+
+        // Quick Percentage calculation helper
+        function setPercentage(fraction) {
+            const calculated = Math.floor(maxBalance * fraction);
+            const amountInput = document.getElementById('withdrawAmount');
+            amountInput.value = calculated;
+            validateWithdraw();
+        }
+
+        // Validate withdrawal limit
+        function validateWithdraw() {
+            const amountInput = document.getElementById('withdrawAmount');
+            const errorText = document.getElementById('withdrawError');
+            const summaryAmount = document.getElementById('summaryAmount');
+            const summaryTotal = document.getElementById('summaryTotal');
+            
+            const val = parseFloat(amountInput.value) || 0;
+
+            summaryAmount.innerText = val.toFixed(2) + " ETB";
+            summaryTotal.innerText = val.toFixed(2) + " ETB";
+
+            if (val < 100 || val > maxBalance) {
+                errorText.classList.remove('hidden');
+                return false;
+            } else {
+                errorText.classList.add('hidden');
+                return true;
+            }
+        }
+
+        // Form Submit Action triggering the Amharic bonus error restriction
+        function handleWithdraw(e) {
+            e.preventDefault();
+            
+            const alertBanner = document.getElementById('bonusAlert');
+            alertBanner.classList.remove('hidden');
+
+            // Scroll modal to top to show the warning clearly
+            alertBanner.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

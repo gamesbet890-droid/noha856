@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bet Games - Telebirr Deposit</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #080705;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphic dark modal background matching reference image */
+        .deposit-modal {
+            background: #12100d;
+            border: 1px solid rgba(255, 119, 0, 0.25);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 85, 0, 0.15);
+        }
+
+        /* Quick Amount Selection Buttons */
+        .amount-btn {
+            background: rgba(26, 22, 18, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFD700;
+            transition: all 0.2s ease;
+        }
+
+        .amount-btn:hover, .amount-btn.active {
+            background: rgba(255, 119, 0, 0.15);
+            border-color: #FF7700;
+            box-shadow: 0 0 12px rgba(255, 119, 0, 0.3);
+            color: #ffffff;
+        }
+
+        /* Input Glow styling */
+        .custom-input {
+            background: #0a0907;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.2s ease;
+        }
+
+        .custom-input:focus-within {
+            border-color: #FF7700;
+            box-shadow: 0 0 15px rgba(255, 119, 0, 0.25);
+        }
+
+        /* Orange Action Button Gradient */
+        .btn-orange-gradient {
+            background: linear-gradient(180deg, #FF7700 0%, #E64A00 100%);
+            box-shadow: 0 8px 25px rgba(255, 85, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-orange-gradient:hover {
+            background: linear-gradient(180deg, #FF8811 0%, #FF5500 100%);
+            box-shadow: 0 10px 30px rgba(255, 85, 0, 0.6);
+        }
+
+        .btn-orange-gradient:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 min-h-screen">
+
+    <!-- Deposit Modal Container -->
+    <div class="deposit-modal w-full max-w-md rounded-3xl p-6 relative z-10">
+        
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/30">
+                    <i class="fa-solid fa-wallet text-black text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold tracking-tight text-white">Deposit Funds</h2>
+                    <p class="text-xs text-gray-400">Telebirr Direct Transfer</p>
+                </div>
+            </div>
+            <button class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+        </div>
+
+        <!-- Telebirr Account Copy Section -->
+        <div class="bg-black/50 border border-orange-500/30 rounded-2xl p-3.5 mb-5 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-sky-600 flex items-center justify-center font-black text-xs text-white tracking-tighter">
+                    telebirr
+                </div>
+                <div>
+                    <span class="text-[11px] text-gray-400 uppercase font-semibold block">Telebirr Number</span>
+                    <span id="telebirrNumber" class="text-base font-extrabold text-amber-400 tracking-wider">0944325575</span>
+                </div>
+            </div>
+            
+            <button onclick="copyNumber()" id="copyBtn" class="bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/50 text-orange-400 text-xs px-3.5 py-2 rounded-xl font-bold flex items-center gap-1.5 transition-all active:scale-95">
+                <i class="fa-solid fa-copy text-xs"></i>
+                <span id="copyText">Copy</span>
+            </button>
+        </div>
+
+        <!-- Quick Deposit Selection (Preset ETB Amounts) -->
+        <label class="text-xs font-semibold text-gray-300 mb-2 block">Select Quick Deposit Amount (ETB)</label>
+        <div class="grid grid-cols-3 gap-2.5 mb-4">
+            <button onclick="selectAmount(100)" class="amount-btn active py-3 rounded-xl font-extrabold text-base tracking-wide flex flex-col items-center">
+                100 <span class="text-[10px] opacity-70 font-normal">ETB</span>
+            </button>
+            <button onclick="selectAmount(250)" class="amount-btn py-3 rounded-xl font-extrabold text-base tracking-wide flex flex-col items-center">
+                250 <span class="text-[10px] opacity-70 font-normal">ETB</span>
+            </button>
+            <button onclick="selectAmount(500)" class="amount-btn py-3 rounded-xl font-extrabold text-base tracking-wide flex flex-col items-center">
+                500 <span class="text-[10px] opacity-70 font-normal">ETB</span>
+            </button>
+            <button onclick="selectAmount(1000)" class="amount-btn py-3 rounded-xl font-extrabold text-base tracking-wide flex flex-col items-center">
+                1,000 <span class="text-[10px] opacity-70 font-normal">ETB</span>
+            </button>
+            <button onclick="selectAmount(2500)" class="amount-btn py-3 rounded-xl font-extrabold text-base tracking-wide flex flex-col items-center">
+                2,500 <span class="text-[10px] opacity-70 font-normal">ETB</span>
+            </button>
+            <button onclick="selectAmount(5000)" class="amount-btn py-3 rounded-xl font-extrabold text-base tracking-wide flex flex-col items-center">
+                5,000 <span class="text-[10px] opacity-70 font-normal">ETB</span>
+            </button>
+        </div>
+
+        <!-- Form Inputs -->
+        <form onsubmit="handleDeposit(event)" class="space-y-4">
+            <!-- Custom Amount Input -->
+            <div>
+                <label class="text-xs font-semibold text-gray-300 mb-1.5 block flex justify-between">
+                    <span>Deposit Amount (ETB)</span>
+                    <span class="text-orange-400 text-[11px]">Min: 100 ETB</span>
+                </label>
+                <div class="custom-input rounded-2xl px-4 py-3 flex items-center justify-between">
+                    <input type="number" id="depositAmount" min="100" value="100" oninput="validateAmount()" required
+                        class="bg-transparent w-full text-white font-bold text-lg focus:outline-none placeholder-gray-600" placeholder="100">
+                    <span class="text-xs font-bold text-gray-400 uppercase ml-2">ETB</span>
+                </div>
+                <p id="amountError" class="text-red-500 text-[11px] mt-1 hidden font-semibold">Minimum deposit amount is 100 ETB</p>
+            </div>
+
+            <!-- Receipt / Transaction Reference Number Input -->
+            <div>
+                <label class="text-xs font-semibold text-gray-300 mb-1.5 block">
+                    Telebirr Transaction / Receipt Number
+                </label>
+                <div class="custom-input rounded-2xl px-4 py-3 flex items-center gap-2">
+                    <i class="fa-solid fa-receipt text-gray-400 text-sm"></i>
+                    <input type="text" id="receiptNumber" required
+                        class="bg-transparent w-full text-white font-semibold text-sm focus:outline-none placeholder-gray-600 uppercase" 
+                        placeholder="e.g. TXN987654321">
+                </div>
+            </div>
+
+            <!-- Confirm Button -->
+            <button type="submit" class="w-full btn-orange-gradient py-4 rounded-2xl text-white font-extrabold text-base tracking-wider uppercase mt-2">
+                Confirm Deposit
+            </button>
+        </form>
+
+        <!-- Guarantee Note -->
+        <div class="mt-4 text-center">
+            <span class="text-[11px] text-gray-500 flex items-center justify-center gap-1.5 font-medium">
+                <i class="fa-solid fa-shield-halved text-orange-500"></i> Instantly credited upon verification
+            </span>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        // Copy Telebirr Number to Clipboard
+        function copyNumber() {
+            const num = document.getElementById('telebirrNumber').innerText;
+            navigator.clipboard.writeText(num).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                const copyText = document.getElementById('copyText');
+                
+                copyText.innerText = "Copied!";
+                copyBtn.classList.remove('bg-orange-500/20', 'border-orange-500/50', 'text-orange-400');
+                copyBtn.classList.add('bg-green-500/20', 'border-green-500/50', 'text-green-400');
+
+                setTimeout(() => {
+                    copyText.innerText = "Copy";
+                    copyBtn.classList.remove('bg-green-500/20', 'border-green-500/50', 'text-green-400');
+                    copyBtn.classList.add('bg-orange-500/20', 'border-orange-500/50', 'text-orange-400');
+                }, 2000);
+            });
+        }
+
+        // Handle Quick Amount Preset Selection
+        function selectAmount(val) {
+            const amountInput = document.getElementById('depositAmount');
+            amountInput.value = val;
+            
+            // Highlight active button
+            const buttons = document.querySelectorAll('.amount-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            validateAmount();
+        }
+
+        // Validate Minimum Amount (Min: 100 ETB)
+        function validateAmount() {
+            const amountInput = document.getElementById('depositAmount');
+            const errorText = document.getElementById('amountError');
+            
+            if (parseInt(amountInput.value) < 100 || !amountInput.value) {
+                errorText.classList.remove('hidden');
+                return false;
+            } else {
+                errorText.classList.add('hidden');
+                return true;
+            }
+        }
+
+        // Form Submit Action
+        function handleDeposit(e) {
+            e.preventDefault();
+            const amount = document.getElementById('depositAmount').value;
+            const receipt = document.getElementById('receiptNumber').value;
+
+            if (!validateAmount()) return;
+
+            alert(`Deposit Request Submitted!\n\nAmount: ${amount} ETB\nReceipt No: ${receipt}\nTelebirr: 0944325575`);
+        }
+    </script>
+</body>
+</html>

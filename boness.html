@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bet Games - 50% Bonus Rewards</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Noto+Sans+Ethiopic:wght@400;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Noto Sans Ethiopic', 'Outfit', sans-serif;
+            background-color: #080705;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .font-impact {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Mobile App Frame Container */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            background: #12100d;
+            border-left: 1px solid rgba(255, 119, 0, 0.2);
+            border-right: 1px solid rgba(255, 119, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 481px) {
+            .app-container {
+                height: 90vh;
+                border-radius: 32px;
+                border: 1px solid rgba(255, 119, 0, 0.4);
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 85, 0, 0.2);
+            }
+        }
+
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 119, 0, 0.4);
+            border-radius: 4px;
+        }
+
+        /* Glassmorphic Cards */
+        .glass-card {
+            background: rgba(20, 16, 12, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 119, 0, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 119, 0, 0.6);
+            box-shadow: 0 8px 25px rgba(255, 85, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Orange Action Button Gradient */
+        .btn-orange-gradient {
+            background: linear-gradient(180deg, #FF7700 0%, #E64A00 100%);
+            box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-orange-gradient:hover {
+            background: linear-gradient(180deg, #FF8811 0%, #FF5500 100%);
+            box-shadow: 0 8px 25px rgba(255, 85, 0, 0.6);
+        }
+
+        .btn-orange-gradient:active {
+            transform: scale(0.98);
+        }
+
+        /* Ambient background glow */
+        .ambient-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.2) 0%, rgba(0,0,0,0) 70%);
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(40px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Ambient Glow -->
+        <div class="ambient-glow"></div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-5 py-4 bg-[#12100d] border-b border-white/10 z-10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/30">
+                    <i class="fa-solid fa-gift text-black text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-base font-bold tracking-tight text-white">የ 50% ቦነስ ሰንጠረዥ</h2>
+                    <p class="text-[11px] text-amber-400 font-semibold">የዲፖዚት ተጨማሪ ሽልማት</p>
+                </div>
+            </div>
+            <button onclick="window.history.back()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+        </div>
+
+        <!-- Main Scrollable Content -->
+        <div class="custom-scroll flex-1 p-4 overflow-y-auto space-y-3 z-10">
+            
+            <!-- Banner Description -->
+            <div class="bg-gradient-to-r from-orange-950/60 to-amber-950/40 border border-orange-500/40 rounded-2xl p-4 text-center mb-4">
+                <i class="fa-solid fa-bolt text-amber-400 text-xl mb-1"></i>
+                <h3 class="text-sm font-extrabold text-white">ገንዘብ ሲያስገቡ የ <span class="text-amber-400">50% ቦነስ</span> በነፃ ያግኙ!</h3>
+                <p class="text-[11px] text-gray-300 mt-1">የሚያስገቡትን ገንዘብ በመምረጥ የሚሰጠውን ቦነስ እና ጠቅላላ ሂሳብ ይመልከቱ።</p>
+            </div>
+
+            <!-- Bonus Cards List (Generated from user table data) -->
+            
+            <!-- Row 1 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #1
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">100 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+50 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">150 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #2
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">200 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+100 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">300 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #3
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">300 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+150 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">450 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #4
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">400 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+200 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">600 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #5
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">500 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+250 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">750 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 6 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #6
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">600 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+300 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">900 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 7 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #7
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">700 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+350 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">1,050 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 8 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #8
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">800 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+400 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">1,200 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 9 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                        #9
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-gray-400 block uppercase font-medium">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">900 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-medium">ቦነስ (50%)</span>
+                    <span class="text-sm font-bold text-amber-400">+450 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-medium">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">1,350 ብር</span>
+                </div>
+            </div>
+
+            <!-- Row 10 -->
+            <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between border-orange-500/60 shadow-lg shadow-orange-500/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-black font-extrabold text-xs">
+                        #10
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-amber-400 block uppercase font-bold">ያስገቡት ገንዘብ</span>
+                        <span class="text-base font-extrabold text-white">1,000 ብር</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="text-[10px] text-amber-400 block uppercase font-bold">ቦነስ (50%)</span>
+                    <span class="text-sm font-extrabold text-amber-400">+500 ብር</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-green-400 block uppercase font-bold">ጠቅላላ (Total)</span>
+                    <span class="text-base font-black text-green-400">1,500 ብር</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Action Button -->
+        <div class="p-4 bg-[#12100d] border-t border-white/10 z-10">
+            <button onclick="window.location.href='deposite.html'" class="w-full btn-orange-gradient py-3.5 rounded-2xl text-white font-extrabold text-sm tracking-wider uppercase flex items-center justify-center gap-2">
+                <i class="fa-solid fa-wallet"></i> አሁን ዲፖዚት አድርገው ቦነስ ይውሰዱ
+            </button>
+        </div>
+
+    </div>
+</body>
+</html>

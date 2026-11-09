@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bet Games - Notice</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+Ethiopic:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Noto Sans Ethiopic', 'Outfit', sans-serif;
+            background-color: #080705;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Glassmorphic dark modal matching reference image */
+        .notice-modal {
+            background: #12100d;
+            border: 1px solid rgba(255, 119, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 85, 0, 0.2);
+        }
+
+        /* Orange Action Button Gradient */
+        .btn-orange-gradient {
+            background: linear-gradient(180deg, #FF7700 0%, #E64A00 100%);
+            box-shadow: 0 8px 25px rgba(255, 85, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-orange-gradient:hover {
+            background: linear-gradient(180deg, #FF8811 0%, #FF5500 100%);
+            box-shadow: 0 10px 30px rgba(255, 85, 0, 0.6);
+        }
+
+        .btn-orange-gradient:active {
+            transform: scale(0.98);
+        }
+
+        /* Secondary Dark Button */
+        .btn-dark-secondary {
+            background: #1a1612;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .btn-dark-secondary:hover {
+            background: rgba(255, 119, 0, 0.1);
+            border-color: rgba(255, 119, 0, 0.3);
+        }
+
+        .btn-dark-secondary:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <!-- Modal Container -->
+    <div class="notice-modal w-full max-w-sm rounded-3xl p-6 relative z-10 text-center">
+        
+        <!-- Close Button (X) -->
+        <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all">
+            <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+
+        <!-- Top Icon Badge -->
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/40 mx-auto mb-4">
+            <i class="fa-solid fa-lock text-black text-2xl"></i>
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-xl font-bold tracking-tight text-white mb-2">ማስጠንቀቂያ / Notice</h2>
+
+        <!-- Message Body -->
+        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6 px-1">
+            ወደ ደንበኛችን ጌሙን ለመክፈት መክፈቻ ብር አላስገቡም እባክወን ብር አስገብተው ጌሙን ያስጀምሩ።
+        </p>
+
+        <!-- Action Buttons (1. Deposit & 2. Get Bonus) -->
+        <div class="space-y-3">
+            <!-- 1. Deposit Button -->
+            <button onclick="goToDeposit()" class="w-full btn-orange-gradient py-3.5 rounded-2xl text-white font-extrabold text-sm tracking-wider uppercase flex items-center justify-center gap-2">
+                <i class="fa-solid fa-wallet"></i> 1. Deposit (ብር ማስገባት)
+            </button>
+
+            <!-- 2. Get Bonus Button -->
+            <button onclick="goToBonus()" class="w-full btn-dark-secondary py-3.5 rounded-2xl text-amber-400 font-extrabold text-sm tracking-wider uppercase flex items-center justify-center gap-2">
+                <i class="fa-solid fa-gift"></i> 2. Get Bonus (ቦነስ ማግኘት)
+            </button>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Actions -->
+    <script>
+        function goToDeposit() {
+            // ወደ ዲፖዚት ገጽ ለመዘዋወር (የፋይሉን ስም ማስተካከል ይችላሉ)
+            window.location.href = 'deposite.html';
+        }
+
+        function goToBonus() {
+            // ወደ ቦነስ ገጽ ለመዘዋወር
+            window.location.href = 'bonus.html';
+        }
+
+        function closeModal() {
+            // ገጹን ለመዝጋት ወይም ወደ መነሻ ለመመለስ
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
